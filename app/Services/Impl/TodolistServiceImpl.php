@@ -22,6 +22,15 @@ class TodolistServiceImpl implements TodolistService
         return Todo::query()->get()->toArray();
     }
 
+    public function editTodo(string $todoId, string $newTodo): void
+    {
+        $todo = Todo::query()->find($todoId);
+        if ($todo != null) {
+            $todo->todo = $newTodo;
+            $todo->save();
+        }
+    }
+
     public function removeTodo(string $todoId)
     {
         $todo = Todo::query()->find($todoId);

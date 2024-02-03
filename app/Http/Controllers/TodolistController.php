@@ -43,6 +43,19 @@ class TodolistController extends Controller
         return redirect()->action([TodolistController::class, 'todolist']);
     }
 
+    public function editTodo(Request $request, string $todoId)
+    {
+        $newTodo = $request->input("newTodo");
+
+        if (empty($newTodo)) {
+            return redirect()->back()->with('error', 'New Todo is required');
+        }
+
+        $this->todolistService->editTodo($todoId, $newTodo);
+
+        return redirect()->action([TodolistController::class, 'todolist']);
+    }
+
     public function removeTodo(Request $request, string $todoId): RedirectResponse
     {   
         $this->todolistService->removeTodo($todoId);
